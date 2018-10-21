@@ -1,15 +1,11 @@
 import "./BackOrGo.css";
 import React, { Component } from "react";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
 import Container from "../../components/Container";
-import SoloCardInfo from "../../components/SoloCardInfo";
+// import Navbar from "../../components/Navbar";
+// import SoloCardInfo from "../../components/SoloCardInfo";
 
 class BackOrGo extends Component {
-
-  constructor (props) {
-    super (props);
-  };
 
   handleBackClick = () => {
     this.props.renderNewComponent("home", {});

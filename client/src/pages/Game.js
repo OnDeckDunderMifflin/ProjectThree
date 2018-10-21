@@ -121,7 +121,7 @@ class Game extends Component {
 
     newState.game.hands[name] = newHand
 
-    this.state.activeCardIndexes = [];
+    newState.activeCardIndexes = [];
     newState.game.message = name + " discarded."
     firebase.database().ref().child('games').child(this.props.code).set(newState.game)
   };

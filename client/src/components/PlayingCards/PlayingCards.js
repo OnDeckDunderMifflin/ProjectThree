@@ -1,12 +1,7 @@
 import React, {Component} from "react";
 import "./PlayingCards.css";
 
-class PlayingCards extends Component {
-
-	constructor(props) {
-    	super(props);
-  }
-    
+class PlayingCards extends Component { 
 
   handleClick = event => {
     const index = event.target.dataset.index;

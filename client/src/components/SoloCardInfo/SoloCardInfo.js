@@ -1,7 +1,7 @@
 import "./SoloCardInfo.css";
 import React, { Component } from "react";
-import Row from "../Row";
-import Col from "../Col";
+// import Row from "../Row";
+// import Col from "../Col";
 
 
 class SoloCardInfo extends Component {
