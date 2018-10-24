@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import DiscardPile from "../components/DiscardPile";
-import CardPile from "../components/CardPile";
-import ActiveBar from "../components/ActiveBar";
-import PlayingCards from "../components/PlayingCards";
+import Container from "../../components/Container";
+import Row from "../../components/Row";
+import DiscardPile from "../../components/DiscardPile";
+import CardPile from "../../components/CardPile";
+import ActiveBar from "../../components/ActiveBar";
+import PlayingCards from "../../components/PlayingCards";
 import "./Game.css"; 
-import GameButtons from "../components/GameButtons";
+import GameButtons from "../../components/GameButtons";
 import { Button} from 'reactstrap';
-import firebase, { leaveGame, connectToGame } from '../firebase';
-import PlayerList from "../components/PlayerList";
+import firebase, { leaveGame, connectToGame } from '../../firebase';
+import PlayerList from "../../components/PlayerList";
 
 function shuffleArray(arr) {
   let shuffledArray = [].concat(arr);

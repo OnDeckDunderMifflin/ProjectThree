@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Container from "../components/Container";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
-import Row from "../components/Row";
-import Col from "../components/Col";
+import Container from "../../components/Container";
+import LoginForm from "../../components/LoginForm";
+import SignupForm from "../../components/SignupForm";
+import Row from "../../components/Row";
+import Col from "../../components/Col";
 import { Collapse, Button} from 'reactstrap';
-import "../index.css";
+import "../../index.css";
 
 class Login extends Component {
       constructor(props) {
@@ -44,7 +44,7 @@ class Login extends Component {
 
     return (
       <Container style={{ minHeight: "80%" }}>
-        <img className="logo-image" alt="" id="logo" src={require("../onDeckLogo.png")} />
+        <img className="logo-image" alt="" id="logo" src={require("./onDeckLogo.png")} />
           {/*<h1>{this.props.test}</h1>*/}
           <Row>
             <Col size="md-12">
