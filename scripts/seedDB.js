@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+const instance = process.argv[2];
+let proceed;
+let decks = 0;
 mongoose.Promise = global.Promise;
 
+mongoose.connect("mongodb://localhost/onDeck_DB");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/onDeck_DB");
-//mongoose.connect("mongodb://heroku_x6fqxrdj:bhjko6k9c3d5asopm2hdhiq2g6@ds261838.mlab.com:61838/heroku_x6fqxrdj");
 const userSeed = [
   {
     username: 'OnDeck',
@@ -38,7 +40,7 @@ const deckSeed = [
     handSize: 7,
     allCards: []
   }
- ];
+  ];
 
 let cardSeed = [
   {
@@ -200,9 +202,8 @@ db.Deck
     
     //insert all the cards into the cards collection
     db.Card.insertMany(cards, function(err, insertedDocs){
-      console.log(deckData);
       if(err) throw err;
-     
+      
       //seperate _ids of cards into arrays based on the fromDeck property and put them in an object
       let ids = {
         "Uno": insertedDocs.filter(element => element.fromDeck === "Uno").map(element => element._id),
@@ -221,7 +222,12 @@ db.Deck
 
           } else {
             
-            console.log("all good yo");
+            console.log(`       ${name} seeded successfully`);
+            decks++
+            if(decks === deckData.ops.length){
+              console.log("closing connection")
+              mongoose.connection.close();
+            }
           };
         });
       }

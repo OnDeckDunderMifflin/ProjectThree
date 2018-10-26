@@ -16,5 +16,5 @@ if (!firebase.auth().currentUser) {
     ReactDOM.render(<App auth={null} />, document.getElementById('root'));
   }
 } else {
-    ReactDOM.render(<App auth={firebase.auth().currentUser} />);
+    ReactDOM.render(<App auth={firebase.auth().currentUser} />, document.getElementById('root'));
 }

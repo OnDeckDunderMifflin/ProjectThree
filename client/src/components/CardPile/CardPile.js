@@ -16,12 +16,13 @@ class CardPile extends Component {
   handleClick = () => {
     if(!this.props.canDeal){return};
     let deal = prompt("How many cards would you like to deal?")
-  	if (deal == null || deal == "") {
-        let num = 0;
+    let num
+  	if (deal === null || deal === "") {
+        num = 0;
     } else {
-        let num = deal;
+        num = deal;
     }
-    this.props.deal(deal);
+    this.props.deal(num);
   }
 
   togglePopup() {
@@ -33,6 +34,8 @@ class CardPile extends Component {
 
 	render() {
 		return (
+      this.props.shouldRender
+      ?
 			<div>
 				<div className="card-pile" onClick={this.togglePopup}>
 					{/*<h5>{this.state.cards.cardPile.length}</h5>*/}
@@ -42,6 +45,8 @@ class CardPile extends Component {
           : null
         }
 			</div>
+      :
+      null
 		)
 	}
 }

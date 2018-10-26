@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./Popup.css";
 
-class Popup extends React.Component {
+class Popup extends Component {
 
   constructor(props){
     super(props);
@@ -12,7 +12,7 @@ class Popup extends React.Component {
   }
 
   handleDeal = () => {
-    const numCards = parseInt(this.state.numCardsToDeal)
+    const numCards = parseInt(this.state.numCardsToDeal, 10)
     this.props.togglePopup()
     this.props.deal(numCards);
   }

@@ -60,6 +60,7 @@ router.post("/creategame", function(req, res){
     });
 
     let newGame = {
+      dealt: false,
       deckName: deckName,
       message: `Welcome to ${maker}'s game!`,
       active: maker,

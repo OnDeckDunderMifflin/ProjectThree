@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import DiscardPile from "../components/DiscardPile";
-import CardPile from "../components/CardPile";
-import ActiveBar from "../components/ActiveBar";
-import PlayingCards from "../components/PlayingCards";
+import Container from "../../components/Container";
+import Row from "../../components/Row";
+import DiscardPile from "../../components/DiscardPile";
+import CardPile from "../../components/CardPile";
+import ActiveBar from "../../components/ActiveBar";
+import PlayingCards from "../../components/PlayingCards";
 import "./Game.css"; 
-import GameButtons from "../components/GameButtons";
+import GameButtons from "../../components/GameButtons";
 import { Button} from 'reactstrap';
-import firebase, { leaveGame, connectToGame } from '../firebase';
-import PlayerList from "../components/PlayerList";
+import firebase, { leaveGame, connectToGame } from '../../firebase';
+import PlayerList from "../../components/PlayerList";
 
 function shuffleArray(arr) {
   let shuffledArray = [].concat(arr);
@@ -45,7 +45,6 @@ class Game extends Component {
       newState.isActive = this.props.user.displayName === gameResponse.active;
 
       newState.game = gameResponse
-      console.log(newState);
       this.setState(newState);
     });
   };
@@ -63,12 +62,13 @@ class Game extends Component {
         //if there are cards still in the cardPile from which we are dealing
         if(newState.game.cardPile.length > 1){
 
-          //take a card off the top of the card pile and append it to that players hane
+          //take a card off the top of the card pile and append it to that players hand
           let newCard = newState.game.cardPile.splice(-1,1);
           newState.game.hands[players[k]].push(newCard[0]);
         };
       };
     };
+    newState.game.dealt = true;
 
     firebase.database().ref().child('games').child(this.props.code).set(newState.game);
   };
@@ -121,7 +121,7 @@ class Game extends Component {
 
     newState.game.hands[name] = newHand
 
-    this.state.activeCardIndexes = [];
+    newState.activeCardIndexes = [];
     newState.game.message = name + " discarded."
     firebase.database().ref().child('games').child(this.props.code).set(newState.game)
   };
@@ -131,8 +131,9 @@ class Game extends Component {
     let newState = this.state;
     let name = this.props.user.displayName;
     //empty discard pile
-    newState.game.DiscardPile = ["cards"];
+    newState.game.discardPile = ["cards"];
     newState.activeCardIndexes = [];
+    newState.game.dealt = false;
 
     //empty all players' hands
     for(var player in newState.game.hands){
@@ -188,13 +189,12 @@ class Game extends Component {
 
           {/*<h6 className="game-players">{username}</h6>*/}
           <Row>
-            <CardPile cards={this.state.game.cardPile} deal={this.deal} canDeal={this.state.game.GM === username} isActive={this.state.isActive}/>
-            {/*<DiscardPile cards={this.state.game.discardPile}/> */}
-            <PlayingCards hand={this.state.game.hands[username]} activate={this.activateCard} activeIndexes={this.state.activeCardIndexes}/>
+            <CardPile shouldRender={!(this.state.game.dealt)} cards={this.state.game.cardPile} deal={this.deal} canDeal={this.state.game.GM === username} isActive={this.state.isActive}/>
+            <DiscardPile shouldRender={this.state.game.dealt} topCard={this.state.game.discardPile.slice(-1)[0]}/> 
+            <PlayingCards  hand={this.state.game.hands[username]} activate={this.activateCard} activeIndexes={this.state.activeCardIndexes}/>
             <GameButtons isActive={this.state.isActive} draw={this.drawCard} discard={this.discard} shuffle={this.shuffle} done={this.done}/>
             <PlayerList username={username} players={this.state.game.players} active={this.state.game.active} />
             <ActiveBar isActive={this.state.isActive} />
-
           </Row>
         </Container>
       :

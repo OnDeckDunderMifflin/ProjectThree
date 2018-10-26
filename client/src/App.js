@@ -8,6 +8,8 @@ import CardMake from "./pages/CardMake";
 import BackOrGo from "./pages/BackOrGo";
 import firebase, {login, logout, findGame}from './firebase';
 
+console.log(Home)
+
 const universalProps = {
   test: "hello",
   login: login,

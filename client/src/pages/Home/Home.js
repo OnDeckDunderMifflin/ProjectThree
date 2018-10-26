@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Container from "../components/Container";
-import DeckPanel from "../components/DeckPanel";
-import "../index.css"
+import Container from "../../components/Container";
+import DeckPanel from "../../components/DeckPanel";
+import "../../index.css";
 import axios from "axios";
-import JoinForm from "../components/JoinForm";
-import Navbar from "../components/Navbar";
+import JoinForm from "../../components/JoinForm";
+import Navbar from "../../components/Navbar";
 
 class About extends Component {
       constructor(props) {
