@@ -37,15 +37,16 @@ router.post("/onstart", function(req, res){
 
 router.post("/signup", function(req, res){
   let token;
+  console.log(req.body)
 
-  const userInfo = {
-    username: req.body.username,
-    lowerCase: req.body.username.toLowerCase(),
-    password: req.body.password
-  }
+  var newUser = new db.User();
+
+  newUser.username = req.body.username;
+  newUser.lowerCase = req.body.username.toLowerCase();
+  newUser.password = newUser.generateHash(req.body.password);
 
   //insert new user to DB
-  db.User.collection.insertOne(new db.User(userInfo), (err, savedUser) => {
+  db.User.collection.insertOne(newUser, (err, savedUser) => {
     if(err){
       return res.send({status: "failed", code: err.code})
     }
@@ -78,14 +79,19 @@ router.post("/signup", function(req, res){
 
 router.post("/login", function(req, res){
   let pass = req.body.password;
-  let user = req.body.username;
+  let user = req.body.username.toLowerCase();
   let responseObj = {status: "", user: null}
-  db.User.collection.findOne({lowerCase: user, password: pass}, (err, response) => {
+  db.User.findOne({lowerCase: user}, (err, response) => {
     if(err){
       console.log(err);
       return res.status(500).send()
     }
-    if(response){
+    if(!response){
+      console.log("no response");
+      responseObj.status = "failed"
+      return res.status(200).send(responseObj)
+    }
+    if(response.validPassword(pass)){
       //delete any session DB entries associated with user
       db.Session.collection.deleteMany({"user_id": response._id.toString()}, (delErr, delResponse) => {
         if(delErr){
@@ -125,7 +131,7 @@ router.post("/login", function(req, res){
       })
     }else{
       responseObj.status = "failed";
-      res.send(responseObj);
+      return res.status(200).send(responseObj)
     }
   })
 })
