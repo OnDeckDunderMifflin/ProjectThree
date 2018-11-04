@@ -40,9 +40,9 @@ class Game extends Component {
   };
 
   componentDidMount(){
-    connectToGame(this.props.code, this.props.user.displayName, gameResponse => {
+    connectToGame(this.props.code, this.props.user, gameResponse => {
       let newState = this.state;
-      newState.isActive = this.props.user.displayName === gameResponse.active;
+      newState.isActive = this.props.user === gameResponse.active;
 
       newState.game = gameResponse
       this.setState(newState);
@@ -90,7 +90,7 @@ class Game extends Component {
   drawCard = pile => {
     if(this.state.game[pile].length < 2){return};
     let newState = this.state;
-    let name = this.props.user.displayName;
+    let name = this.props.user;
 
     let yourNewCard = newState.game[pile].splice(-1,1);
 
@@ -104,7 +104,7 @@ class Game extends Component {
 
   discard = pile => {
     let newState = this.state;
-    let name = this.props.user.displayName;
+    let name = this.props.user;
     let hand = newState.game.hands[name];
     let indexes = newState.activeCardIndexes;
 
@@ -129,7 +129,7 @@ class Game extends Component {
   //parameters do nothing yet hopefully they can be used later for adding options to what gets shuffled
   shuffle = (pile, cards) => {
     let newState = this.state;
-    let name = this.props.user.displayName;
+    let name = this.props.user;
     //empty discard pile
     newState.game.discardPile = ["cards"];
     newState.activeCardIndexes = [];
@@ -163,7 +163,7 @@ class Game extends Component {
 
   handleBackClick = () => {
     let newState = this.state;
-    const name = this.props.user.displayName;
+    const name = this.props.user;
     if(this.state.isActive){
       this.done(this.state.game.direction);
     }
@@ -174,7 +174,7 @@ class Game extends Component {
   }
 
 	render() {
-    const username = this.props.user.displayName
+    const username = this.props.user
 
 		return (
       this.state.isActive !== null && this.state.game.hands[username] && (this.state.game.players.indexOf(username) !== -1)

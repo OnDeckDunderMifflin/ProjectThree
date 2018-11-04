@@ -44,7 +44,7 @@ form.login button[type="submit"] {
   color: white;
 }
 
-#emailOrUsername {
+#username {
 	margin-bottom: 15px;
 	outline: none;
   color: white;

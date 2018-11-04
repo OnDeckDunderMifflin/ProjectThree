@@ -36,16 +36,11 @@ class Login extends Component {
       this.setState(newstate);
     }
 
-      componentDidMount = () => {
-        console.log("login mounted");
-      }
-
   render() {
 
     return (
       <Container style={{ minHeight: "80%" }}>
         <img className="logo-image" alt="" id="logo" src={require("./onDeckLogo.png")} />
-          {/*<h1>{this.props.test}</h1>*/}
           <Row>
             <Col size="md-12">
                 <Button className={this.state.signinClass} onClick={this.showLogin}>Sign In</Button>
@@ -53,11 +48,11 @@ class Login extends Component {
             </Col>
             <Col size="md-12">
                 <Collapse isOpen={!this.state.collapse}>
-                  <LoginForm {...this.props}/>
+                  <LoginForm {...this.props} setUser={this.props.setUser}/>
                 </Collapse>
 
                 <Collapse isOpen={this.state.collapse}>
-                  <SignupForm {...this.props}/>
+                  <SignupForm {...this.props} setUser={this.props.setUser}/>
                 </Collapse>
             </Col>
           </Row>

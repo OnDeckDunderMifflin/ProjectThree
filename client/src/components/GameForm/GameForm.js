@@ -18,11 +18,12 @@ class GameForm extends Component {
 
   handleCreate = event => {
     event.preventDefault();
+    console.log(this.props)
 
     const data = {
       numPlayers: this.state.numPlayers,
       deckName: this.props.deckName,
-      maker: this.props.user.displayName
+      maker: this.props.user
     }
 
     axios.post("/api/creategame", data).then(response => {
