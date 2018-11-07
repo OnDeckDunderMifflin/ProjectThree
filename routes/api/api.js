@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const db = require("../../models")
 const firebase = require("../../firebase");
+const crypto = require("crypto");
 
 function shuffle(originalArray) {
     var array = [].concat(originalArray);
@@ -23,11 +24,6 @@ function shuffle(originalArray) {
 }
 
 router.get("/", function(req, res){
-    console.log(req.body);
-    res.send("test route worked")
-});
-
-router.post("/", function(req, res){
     console.log(req.body);
     res.send("test route worked")
 });

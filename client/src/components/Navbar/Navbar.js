@@ -29,14 +29,6 @@ export default class Example extends React.Component {
     });
   }
 
-  handleLogout = () => {
-    this.props.logout(response => {
-      if(response.status === "success"){
-        this.props.renderNewComponent("login", {});
-      };
-    });
-  };
-
   handlePlayClick = () => {
     this.props.renderNewComponent("home", {});
   }

@@ -7,13 +7,11 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect("mongodb://localhost/onDeck_DB");
 
-const userSeed = [
-  {
-    username: 'OnDeck',
-    password: '12345',
-    createdDecks: []
-  }
-]
+var newUser = new db.User();
+newUser.username = "OnDeck";
+newUser.lowerCase = "ondeck";
+newUser.password = newUser.generateHash("12345");
+newUser.createdDecks = [];
 
 const deckSeed = [
   {
@@ -181,7 +179,7 @@ db.Deck
   .then(db.User.remove({})
 
   //then insert the seed user
-  .then(() => db.User.collection.insertOne(userSeed[0]))
+  .then(() => db.User.collection.insertOne(newUser))
 
   //then insert the seed deck
   .then(userData => db.Deck.collection.insertMany(deckSeed)

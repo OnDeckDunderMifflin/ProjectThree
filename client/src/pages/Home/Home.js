@@ -24,18 +24,17 @@ class About extends Component {
         });
       }
 
-
       toggle() {
         this.setState({ collapse: !this.state.collapse });
       }
-      
 
       handleLogout = () => {
-        this.props.logout(response => {
-          if(response.status === "success"){
-            this.props.renderNewComponent("login", {});
-          };
-        });
+        axios.post("/auth/logout").then(response => {
+          if(response.data === "success"){
+            this.props.setUser(null)
+            this.props.renderNewComponent("login", {})
+          }
+        })
       };
     
       render(){
@@ -59,7 +58,6 @@ class About extends Component {
           </div>
         )
       };
-
 };
 
 export default About;

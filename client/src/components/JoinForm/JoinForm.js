@@ -11,6 +11,10 @@ class JoinForm extends Component {
     }
   }
 
+  componentDidMount = () => {
+    console.log("joinform props", this.props)
+  }
+
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change

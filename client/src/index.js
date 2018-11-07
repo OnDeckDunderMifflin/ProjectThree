@@ -1,20 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import './index.css';
 import App from './App';
-import firebase from './firebase';
 
 
-if (!firebase.auth().currentUser) {
-  let hasLocalStorageUser = false;
-  for (let key in localStorage) {
-    if (key.startsWith("firebase:authUser:")) {
-      ReactDOM.render(<App auth={JSON.parse(localStorage[key])} />, document.getElementById('root'));
+if(document.cookie.indexOf("token") !== -1){
+  axios.post('/auth/onstart', {}).then(response => {
+    if(response.data.status === "success"){
+      ReactDOM.render(<App auth={"success"} user={response.data.user}/>, document.getElementById('root'));
+    }else{
+      ReactDOM.render(<App auth={null} user={null}/>, document.getElementById('root'));
     }
-  }
-  if (!hasLocalStorageUser) {
-    ReactDOM.render(<App auth={null} />, document.getElementById('root'));
-  }
-} else {
-    ReactDOM.render(<App auth={firebase.auth().currentUser} />, document.getElementById('root'));
+  })
+}else{
+  ReactDOM.render(<App auth={null} user={null}/>, document.getElementById('root'));
 }
